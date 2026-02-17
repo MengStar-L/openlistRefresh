@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=root
 WorkingDirectory=/opt/openlistRefresh
-ExecStart=/opt/myenv/bin/python /opt/openlistRefresh/openlistrefresh.py
+ExecStart=/opt/openlistRefresh/myenv/bin/python /opt/openlistRefresh/openlistrefresh.py
 Restart=always
 RestartSec=10
 

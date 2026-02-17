@@ -15,8 +15,8 @@ git clone https://github.com/MengStar-L/openlistRefresh.git /opt/openlistRefresh
 ### 2. 创建虚拟环境并安装依赖
 
 ```bash
-python3 -m venv /opt/myenv
-source /opt/myenv/bin/activate
+python3 -m venv /opt/openlistRefresh/myenv
+source /opt/openlistRefresh/myenv/bin/activate
 pip install requests
 ```
 
