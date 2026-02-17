@@ -12,9 +12,11 @@ AList 目录自动刷新工具 —— 定时强制刷新指定目录，确保文
 git clone https://github.com/MengStar-L/openlistRefresh.git /opt/openlistRefresh
 ```
 
-### 2. 安装依赖
+### 2. 创建虚拟环境并安装依赖
 
 ```bash
+python3 -m venv /opt/myenv
+source /opt/myenv/bin/activate
 pip install requests
 ```
 
