@@ -5,8 +5,8 @@ After=network.target
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/opt/Tel2TelDrive
-ExecStart=/usr/bin/python3 /opt/Tel2TelDrive/openlistrefresh.py
+WorkingDirectory=/opt/openlistRefresh
+ExecStart=/usr/bin/python3 /opt/openlistRefresh/openlistrefresh.py
 Restart=always
 RestartSec=10
 

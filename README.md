@@ -1,105 +1,73 @@
 # OpenList Refresh
 
-AList 目录自动刷新工具 —— 定时强制刷新指定目录，确保文件列表始终是最新状态。
+AList 目录自动刷新工具 —— 定时强制刷新指定目录，确保文件列表始终最新。
 
-## 功能
+## 部署步骤
 
-- 定时调用 AList API 强制刷新指定目录（跳过缓存）
-- 支持自定义刷新间隔
-- 支持 systemd 部署为后台服务
+> 以下命令在 Linux 服务器上依次执行即可。
 
-## 快速开始
+### 1. 下载项目
 
-### 1. 环境要求
+```bash
+git clone https://github.com/MengStar-L/openlistRefresh.git /opt/openlistRefresh
+```
 
-- Python 3.11+
-- `requests` 库
+### 2. 安装依赖
 
 ```bash
 pip install requests
 ```
 
-### 2. 配置
-
-复制示例配置文件并填写你的信息：
+### 3. 创建配置文件
 
 ```bash
-cp config.example.toml config.toml
+cp /opt/openlistRefresh/config.example.toml /opt/openlistRefresh/config.toml
 ```
 
-编辑 `config.toml`：
+编辑配置文件：
+
+```bash
+nano /opt/openlistRefresh/config.toml
+```
+
+填入你的信息：
 
 ```toml
-# AList 面板地址 (不要以 / 结尾)
-base_url = "http://your-alist-server:5244"
-
-# 需要强制刷新的目录路径
-target_path = "/YourPath"
-
-# 管理员 Token
-admin_token = "your_admin_token_here"
-
-# 自动刷新间隔 (秒)
+base_url = "http://你的AList地址:5244"
+target_path = "/你的目录路径"
+admin_token = "你的管理员Token"
 refresh_interval = 60
 ```
 
-### 3. 运行
+> **Token 获取方式**：AList 后台 → 设置 → 其他 → 令牌
+
+### 4. 注册为系统服务（开机自启）
 
 ```bash
-python3 openlistrefresh.py
+cp /opt/openlistRefresh/openlistrefresh.service /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable --now openlistrefresh
 ```
 
-## 部署为 systemd 服务
-
-### 1. 上传文件
-
-将项目文件上传到服务器，例如 `/opt/openlistRefresh/`：
+### 5. 确认运行状态
 
 ```bash
-mkdir -p /opt/openlistRefresh
-# 将 openlistrefresh.py、config.toml 上传到该目录
+systemctl status openlistrefresh
 ```
 
-### 2. 修改 service 文件
+看到 `active (running)` 即表示部署成功 ✅
 
-编辑 `openlistrefresh.service`，将 `WorkingDirectory` 和 `ExecStart` 修改为你的实际路径：
-
-```ini
-[Service]
-WorkingDirectory=/opt/openlistRefresh
-ExecStart=/usr/bin/python3 /opt/openlistRefresh/openlistrefresh.py
-```
-
-### 3. 安装并启动服务
+## 常用命令
 
 ```bash
-# 复制 service 文件到 systemd 目录
-sudo cp openlistrefresh.service /etc/systemd/system/
-
-# 重新加载 systemd
-sudo systemctl daemon-reload
-
-# 启动服务
-sudo systemctl start openlistrefresh
-
-# 设置开机自启
-sudo systemctl enable openlistrefresh
-```
-
-### 4. 常用管理命令
-
-```bash
-# 查看服务状态
-sudo systemctl status openlistrefresh
-
-# 查看日志
-sudo journalctl -u openlistrefresh -f
+# 查看实时日志
+journalctl -u openlistrefresh -f
 
 # 重启服务
-sudo systemctl restart openlistrefresh
+systemctl restart openlistrefresh
 
 # 停止服务
-sudo systemctl stop openlistrefresh
+systemctl stop openlistrefresh
 ```
 
 ## License
