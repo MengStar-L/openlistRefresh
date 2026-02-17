@@ -1,0 +1,13 @@
+# ================= AList 刷新配置 =================
+
+# AList 面板地址 (不要以 / 结尾)
+base_url = "http://your-alist-server:5244"
+
+# 需要强制刷新的目录路径
+target_path = "/YourPath"
+
+# 管理员 Token
+admin_token = "your_admin_token_here"
+
+# 自动刷新间隔 (秒)
+refresh_interval = 60

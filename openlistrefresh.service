@@ -1,0 +1,14 @@
+[Unit]
+Description=AList TelDrive 目录自动刷新服务
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/Tel2TelDrive
+ExecStart=/usr/bin/python3 /opt/Tel2TelDrive/openlistrefresh.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
